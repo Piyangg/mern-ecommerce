@@ -14,12 +14,14 @@ const GiftCouponCard = () => {
 	}, [coupon]);
 
     const handleApplyCoupon = () => {
-        console.log(userInputCode);
-    }
+        if(!userInputCode) return;
+		applyCoupon(userInputCode);
+    };
 
-    const handleRemoveCoupon = () => {
-        console.log("remove coupon");
-    }
+    const handleRemoveCoupon = async () => {
+        await removeCoupon();
+		setUserInputCode("");
+    };
   return <motion.div
   className='space-y-4 rounded-lg border border-gray-700 bg-gray-800 p-4 shadow-sm sm:p-6'
 			initial={{ opacity: 0, y: 20 }}

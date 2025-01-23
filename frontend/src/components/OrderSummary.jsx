@@ -8,28 +8,30 @@ import { loadStripe } from "@stripe/stripe-js";  // Add this import
 const stripePromise = loadStripe("pk_test_51QiH4XEP3vKsFbY0xSNvpViGnkjAlKCd74NTMwErgGSXXw2jfeuEuPiHtHaz2DajidAHf6kzoP3dY1V17uMs9I8t0089e4h9YM");
 
 const OrderSummary = () => {
-    const { total, subtotal, coupon, isCouponApplied, cart } = useCartStore();
-    const savings = subtotal - total;
-    const formattedSubtotal = total.toFixed(2);
-    const formattedTotal = total.toFixed(2);
-    const formattedSavings = savings.toFixed(2);
+	const { total, subtotal, coupon, isCouponApplied, cart } = useCartStore();
 
-    const handlePayment = async () => {
-        const stripe = await stripePromise;
-        const res = await axios.post("/payments/create-checkout-session", {
-            products: cart,
-            couponCode: coupon ? coupon.code : null,
-        });
+	const savings = subtotal - total;
+	const formattedSubtotal = subtotal.toFixed(2);
+	const formattedTotal = total.toFixed(2);
+	const formattedSavings = savings.toFixed(2);
 
-        const session = res.data;
-        const result = await stripe.redirectToCheckout({
-            sessionId: session.id,
-        });
+	const handlePayment = async () => {
+		const stripe = await stripePromise;
+		const res = await axios.post("/payments/create-checkout-session", {
+			products: cart,
+			couponCode: coupon ? coupon.code : null,
+		});
 
-        if (result.error) {
-            console.error("Error:", result.error);
-        }
-    };
+		const session = res.data;
+		const result = await stripe.redirectToCheckout({
+			sessionId: session.id,
+		});
+
+		if (result.error) {
+			console.error("Error:", result.error);
+		}
+	};
+
 
     return (
         <motion.div
