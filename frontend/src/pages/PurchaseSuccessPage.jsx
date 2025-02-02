@@ -23,6 +23,7 @@ const PurchaseSuccessPage = () => {
 				setIsProcessing(false);
 			}
 		};
+
 		const sessionId = new URLSearchParams(window.location.search).get("session_id");
 		if (sessionId) {
 			handleCheckoutSuccess(sessionId);

@@ -128,7 +128,6 @@ async function createStripeCoupon(discountPercentage) {
 }
 
 async function createNewCoupon(userId) {
-    
 	await Coupon.findOneAndDelete({ userId });
 
 	const newCoupon = new Coupon({

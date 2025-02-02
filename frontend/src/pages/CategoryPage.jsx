@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 import ProductCard from "../components/ProductCard";
 
 const CategoryPage = () => {
-	const { fetchProductByCategory, products } = useProductStore();
+	const { fetchProductsByCategory, products } = useProductStore();
 
 	const { category } = useParams();
 
 	useEffect(() => {
-		fetchProductByCategory(category);
-	}, [fetchProductByCategory, category]);
+		fetchProductsByCategory(category);
+	}, [fetchProductsByCategory, category]);
 
 	console.log("products:", products);
 	return (
